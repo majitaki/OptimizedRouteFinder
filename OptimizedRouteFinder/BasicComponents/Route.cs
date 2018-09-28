@@ -8,15 +8,18 @@ using System.Threading.Tasks;
 namespace OptimizedRouteFinder.BasicComponents {
   class Route : I_Route {
     public int RouteID { get; }
-    public Dictionary<string, double> RouteColumnList { get; }
+    public Dictionary<string, double> RouteColumnDic { get; }
 
-    public Route() {
-      this.RouteColumnList = new Dictionary<string, double>();
+    public Route(int id) {
+      this.RouteID = id;
+      this.RouteColumnDic = new Dictionary<string, double>();
     }
 
     public void Register(List<string> route_list, List<string> columns) {
       for (int i = 0; i < columns.Count; i++) {
-        this.RouteColumnList.Add(columns[i], double.Parse(route_list[i]));
+        var data = route_list[i];
+        if (data == "") data = "-1";
+        this.RouteColumnDic.Add(columns[i], double.Parse(data));
       }
     }
   }

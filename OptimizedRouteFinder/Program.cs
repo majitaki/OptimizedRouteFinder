@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 namespace OptimizedRouteFinder {
   class Program {
     static void Main(string[] args) {
-      Settings settings = Settings.GetInstance();
+      PythonProxy.StartUpPython();
 
-      var all_data = Input.ReadRaw(settings.InputCsvPath);
+      var all_data = InOutput.ReadRaw(MySettings.GetInstance().InputCsvPath);
+      var sample = all_data.Where(data => data.MyCargo.CargoColumnDic["A"] == 10017).ToList();
+      var result = Predict.PredictBranchs(sample);
     }
   }
 }

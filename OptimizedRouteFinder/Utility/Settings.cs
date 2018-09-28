@@ -6,66 +6,65 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OptimizedRouteFinder.Utility {
-  public sealed class Settings {
-    private static Settings SingletonSettings = new Settings();
+  public sealed class MySettings {
+    private static MySettings SingletonSettings = new MySettings();
 
+    //anaconda
+    public string AnacondaPath { get; private set; }
+    public string AnacondaEnv { get; private set; }
+    //base
     public string BasePath { get; private set; }
-    public string InputFolderName { get; private set; }
+    //output folder
+    public string OutputFolderName { get; private set; }
+    public string WorkingFolderName { get; private set; }
+    public string WorkingPath { get; private set; }
+    //input file
     public string InputCsvName { get; private set; }
     public string InputCsvPath { get; private set; }
-    //public List<string> OtherColumnList { get; private set; }
-    //public List<string> CargoColumnList { get; private set; }
-    //public List<string> Route00_ColumnList { get; private set; }
-    //public List<string> Route01_ColumnList { get; private set; }
-    //public List<string> Route02_ColumnList { get; private set; }
-    //public List<string> Route03_ColumnList { get; private set; }
+    //output file
+    public string OutputResultCsvName { get; private set; }
+    public string OutputAllResultCsvName { get; private set; }
+    public string OutputResultCsvPath { get; private set; }
+    public string OutputAllResultCsvPath { get; private set; }
+    public string OutputFlagPath { get; private set; }
+    //script
+    public string PredictBranchScriptName { get; private set; }
+    public string PredictBranchScriptPath { get; private set; }
 
-    public static Settings GetInstance() {
+    //column
+    public Tuple<int, int> CargoColumDuration { get; private set; }
+    public Tuple<int, int> Route00_ColumDuration { get; private set; }
+    public Tuple<int, int> Route01_ColumDuration { get; private set; }
+    public Tuple<int, int> Route02_ColumDuration { get; private set; }
+    public Tuple<int, int> Route03_ColumDuration { get; private set; }
+
+    public static MySettings GetInstance() {
       return SingletonSettings;
     }
 
-    private Settings() {
-      this.DoInputSettings();
-      this.DoColumnsSettings();
-    }
-
-    void DoInputSettings() {
-      this.BasePath = Environment.CurrentDirectory;
-      this.InputFolderName = "Input";
+    private MySettings() {
+      this.AnacondaPath = "C:\\ProgramData\\Anaconda3\\Scripts\\activate.bat";
+      this.AnacondaEnv = "";
+      //this.BasePath = Environment.CurrentDirectory;
+      this.BasePath = "./";
+      this.OutputFolderName = "Output";
+      this.WorkingFolderName = "Working";
+      this.WorkingPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName;
       this.InputCsvName = "random_honsyu.csv";
-      this.SafeCreateDirectory(this.BasePath + "\\" + this.InputFolderName);
-      this.InputCsvPath = this.BasePath + "\\" + this.InputFolderName + "\\" + this.InputCsvName;
-    }
+      this.InputCsvPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + this.InputCsvName;
+      this.OutputResultCsvName = "result.csv";
+      this.OutputAllResultCsvName = "result_all.csv";
+      this.OutputResultCsvPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + this.OutputResultCsvName;
+      this.OutputAllResultCsvPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + this.OutputAllResultCsvName;
+      this.OutputFlagPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + "flag";
+      this.PredictBranchScriptName = "predict_branch.py";
+      this.PredictBranchScriptPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + this.PredictBranchScriptName;
 
-    void DoColumnsSettings() {
-
-      //this.CargoColumnList = new List<string> {
-      //  "A","B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O"
-      //};
-
-      //this.Route00_ColumnList = new List<string> {
-      //  "a0","b0", "c0", "d0", "e0", "f0", "g0", "h0", "i0", "j0", "k0", "l0", "m0", "n0", "o0", "p0", "q0"
-      //};
-
-      //this.Route01_ColumnList = new List<string> {
-      //  "a1","b1", "c1", "d1", "e1", "f1", "g1", "h1", "i1", "j1", "k1", "l1", "m1", "n1", "o1", "p1", "q1"
-      //};
-
-      //this.Route02_ColumnList = new List<string> {
-      //  "a2","b2", "c2", "d2", "e2", "f2", "g2", "h2", "i2", "j2", "k2", "l2", "m2", "n2", "o2", "p2", "q2"
-      //};
-
-      //this.Route03_ColumnList = new List<string> {
-      //  "a3","b3", "c3", "d3", "e3", "f3", "g3", "h3", "i3", "j3", "k3", "l3", "m3", "n3", "o3", "p3", "q3"
-      //};
-
-    }
-
-    void SafeCreateDirectory(string path) {
-      if (Directory.Exists(path)) {
-        return;
-      }
-      Directory.CreateDirectory(path);
+      this.CargoColumDuration = new Tuple<int, int>(3, 17);
+      this.Route00_ColumDuration = new Tuple<int, int>(18, 34);
+      this.Route01_ColumDuration = new Tuple<int, int>(35, 51);
+      this.Route02_ColumDuration = new Tuple<int, int>(52, 68);
+      this.Route03_ColumDuration = new Tuple<int, int>(69, 85);
     }
   }
 }
