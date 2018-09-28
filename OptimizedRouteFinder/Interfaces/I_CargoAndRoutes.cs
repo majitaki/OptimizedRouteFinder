@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OptimizedRouteFinder.Interfaces {
+  /// <summary>
+  /// 貨物と複数経路をセットしたクラスのインターフェース
+  /// </summary>
   interface I_CargoAndRoutes {
     bool IsRaw { get; }
     int ColumnID { get; }

@@ -7,9 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OptimizedRouteFinder.Utility {
+  /// <summary>
+  /// Pythonによる評価に関するクラス
+  /// </summary>
   static class Predict {
 
+    /// <summary>
+    /// 複数対戦(トーナメントの枝群)をPythonスクリプトで評価する
+    /// </summary>
+    /// <param name="car_list">複数の対戦データ</param>
+    /// <returns>対戦の結果，勝利したルートを入力した対戦順にリストにして返す</returns>
     public static List<I_Route> PredictBranchs(List<I_CargoAndRoutes> car_list) {
+
+      InOutput.WriteRaw(car_list);
 
       var state = 0;
       switch (state) {

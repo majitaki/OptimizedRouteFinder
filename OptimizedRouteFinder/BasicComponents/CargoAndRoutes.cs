@@ -7,10 +7,21 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OptimizedRouteFinder.BasicComponents {
+  /// <summary>
+  /// 貨物オブジェクトと複数の経路オブジェクトをセットにしたクラス
+  /// csvの学習データの一行を表すこともある．
+  /// 複数の経路は4つに留まらず，何個でもよい．
+  /// </summary>
   class CargoAndRoutes : I_CargoAndRoutes {
+    /// <summary>
+    /// trueならば，csvの学習データの一行を表している
+    /// </summary>
     public bool IsRaw { get; }
-
+    
     int _colum_id;
+    /// <summary>
+    /// このオブジェクト内の経路オブジェクトのID
+    /// </summary>
     public int ColumnID {
       get {
         if (this.IsRaw) return _colum_id;
@@ -22,6 +33,9 @@ namespace OptimizedRouteFinder.BasicComponents {
     }
 
     int _cor_num;
+    /// <summary>
+    /// 正解の経路オブジェクトのID
+    /// </summary>
     public int CorrectNumber {
       get {
         if (this.IsRaw) return _cor_num;
@@ -32,15 +46,29 @@ namespace OptimizedRouteFinder.BasicComponents {
       }
     }
 
+    /// <summary>
+    /// 貨物オブジェクト
+    /// </summary>
     public I_Cargo MyCargo { get; private set; }
+    /// <summary>
+    /// 経路オブジェクトのリスト
+    /// </summary>
     public List<I_Route> MyRouteList { get; private set; }
 
+    /// <summary>
+    /// </summary>
+    /// <param name="is_raw">学習データをオブジェクト化する場合，true</param>
     public CargoAndRoutes(bool is_raw) {
       this.IsRaw = is_raw;
       this.MyCargo = new Cargo();
       this.MyRouteList = new List<I_Route>();
     }
 
+    /// <summary>
+    /// 学習データを貨物オブジェクト，経路オブジェクトに変換して登録する
+    /// </summary>
+    /// <param name="one_row"></param>
+    /// <param name="columns"></param>
     public void Register(List<string> one_row, List<string> columns) {
       var setting = MySettings.GetInstance();
       this.ColumnID = int.Parse(one_row[1]);
@@ -96,6 +124,11 @@ namespace OptimizedRouteFinder.BasicComponents {
 
     }
 
+    /// <summary>
+    /// 貨物オブジェクトと経路オブジェクトを登録する
+    /// </summary>
+    /// <param name="cargo"></param>
+    /// <param name="route_list"></param>
     public void Register(I_Cargo cargo, List<I_Route> route_list) {
       this.MyCargo = cargo;
       this.MyRouteList = route_list;

@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OptimizedRouteFinder {
+  /// <summary>
+  /// このプログラムのメインクラス．
+  /// </summary>
   class Program {
     static void Main(string[] args) {
       PythonProxy.StartUpPython();

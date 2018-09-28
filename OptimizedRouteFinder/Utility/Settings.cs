@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OptimizedRouteFinder.Utility {
+  /// <summary>
+  /// プログラムの設定に関するクラス．シングルトンの仕組みが実装されているため，常に同じ設定内容を取得できる．staticとして設計しなかった理由は継承で変更した設定を拡張によって構成できるようにするため．
+  /// </summary>
   public sealed class MySettings {
     private static MySettings SingletonSettings = new MySettings();
 
@@ -27,6 +30,8 @@ namespace OptimizedRouteFinder.Utility {
     public string OutputResultCsvPath { get; private set; }
     public string OutputAllResultCsvPath { get; private set; }
     public string OutputFlagPath { get; private set; }
+    public string OutputPredictCsvName { get; private set; }
+    public string OutputPredictCsvPath { get; private set; }
     //script
     public string PredictBranchScriptName { get; private set; }
     public string PredictBranchScriptPath { get; private set; }
@@ -42,21 +47,31 @@ namespace OptimizedRouteFinder.Utility {
       return SingletonSettings;
     }
 
+    /// <summary>
+    /// プログラムの設定項目
+    /// 入出力ファイルやフォルダの設定など
+    /// </summary>
     private MySettings() {
       this.AnacondaPath = "C:\\ProgramData\\Anaconda3\\Scripts\\activate.bat";
       this.AnacondaEnv = "";
       //this.BasePath = Environment.CurrentDirectory;
       this.BasePath = "./";
       this.OutputFolderName = "Output";
+
       this.WorkingFolderName = "Working";
       this.WorkingPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName;
+
       this.InputCsvName = "random_honsyu.csv";
       this.InputCsvPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + this.InputCsvName;
+
       this.OutputResultCsvName = "result.csv";
       this.OutputAllResultCsvName = "result_all.csv";
       this.OutputResultCsvPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + this.OutputResultCsvName;
       this.OutputAllResultCsvPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + this.OutputAllResultCsvName;
       this.OutputFlagPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + "flag";
+      this.OutputPredictCsvName = "sample.csv";
+      this.OutputPredictCsvPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + this.OutputPredictCsvName;
+
       this.PredictBranchScriptName = "predict_branch.py";
       this.PredictBranchScriptPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + this.PredictBranchScriptName;
 

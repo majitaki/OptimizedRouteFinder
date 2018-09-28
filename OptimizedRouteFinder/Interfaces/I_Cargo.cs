@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OptimizedRouteFinder.Interfaces {
+  /// <summary>
+  /// 貨物のインターフェース
+  /// </summary>
   interface I_Cargo {
     int CargoID { get;}
     Dictionary<string, double> CargoColumnDic { get; }

@@ -6,11 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OptimizedRouteFinder.Utility {
+  /// <summary>
+  /// C#プログラムとPythonスクリプトの仲介をするクラス
+  /// </summary>
   class PythonProxy {
     static System.Diagnostics.Process Process;
     static System.IO.StreamWriter StreamWriter;
     public static bool ErrorFlag;
 
+    /// <summary>
+    /// Pythonの環境設定をする
+    /// </summary>
     public static void StartUpPython() {
       Process = new System.Diagnostics.Process();
       Process.StartInfo.UseShellExecute = false;
@@ -35,6 +41,11 @@ namespace OptimizedRouteFinder.Utility {
       }
     }
 
+    /// <summary>
+    /// Pythonスクリプトを用いて複数対戦の評価をする
+    /// </summary>
+    /// <param name="path">今は指定の必要なし．将来的に動的に評価スクリプトを変化した場合に用いるとよい</param>
+    /// <returns>評価が無事に終了するとtrue，失敗するとfalseを返す</returns>
     public static bool PythonPredictBranch(string path = "") {
       ErrorFlag = false;
       var work_path = MySettings.GetInstance().WorkingPath;
@@ -57,12 +68,21 @@ namespace OptimizedRouteFinder.Utility {
       return true;
     }
 
-
+    /// <summary>
+    /// pythonスクリプトの出力時のイベント処理
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     static void p_OutputDataReceived(object sender,
         System.Diagnostics.DataReceivedEventArgs e) {
       Console.WriteLine(e.Data);
     }
 
+    /// <summary>
+    /// pythonスクリプトのエラー出力時のイベント処理
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     static void p_ErrorDataReceived(object sender,
         System.Diagnostics.DataReceivedEventArgs e) {
       Console.WriteLine("ERR>{0}", e.Data);

@@ -7,14 +7,29 @@ using System.Threading.Tasks;
 
 namespace OptimizedRouteFinder.BasicComponents {
   class Route : I_Route {
+    /// <summary>
+    /// 経路オブジェクトのID
+    /// </summary>
     public int RouteID { get; }
+    /// <summary>
+    /// 経路オブジェクトの辞書による表現
+    /// </summary>
     public Dictionary<string, double> RouteColumnDic { get; }
 
+    /// <summary>
+    /// コンストラクター
+    /// </summary>
+    /// <param name="id">経路オブジェクトのID</param>
     public Route(int id) {
       this.RouteID = id;
       this.RouteColumnDic = new Dictionary<string, double>();
     }
 
+    /// <summary>
+    /// string型で表された経路データと属性データを経路オブジェクトに変換し，登録する．
+    /// </summary>
+    /// <param name="route_list">string型の経路データ</param>
+    /// <param name="columns">string型の属性データ</param>
     public void Register(List<string> route_list, List<string> columns) {
       for (int i = 0; i < columns.Count; i++) {
         var data = route_list[i];
