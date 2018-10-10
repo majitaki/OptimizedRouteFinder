@@ -139,7 +139,7 @@ namespace OptimizedRouteFinder.Utility {
     /// </summary>
     /// <param name="raw_result_list">int型のリストを返す</param>
     /// <returns></returns>
-    public static List<int> ConvertResults(List<string[]> raw_result_list) {
+    public static List<int> ConvertRouteIDResults(List<string[]> raw_result_list) {
       var result_list = new List<int>();
 
       foreach (var result in raw_result_list) {
@@ -147,6 +147,16 @@ namespace OptimizedRouteFinder.Utility {
       }
       return result_list;
     }
+
+    public static List<double> ConvertRouteValueResults(List<string[]> raw_result_list) {
+      var result_list = new List<double>();
+
+      foreach (var result in raw_result_list) {
+        result_list.Add(double.Parse(result[2]));
+      }
+      return result_list;
+    }
+
 
     /// <summary>
     /// 過去のPythonスクリプトの出力結果を消去する

@@ -36,15 +36,20 @@ namespace OptimizedRouteFinder.Utility {
           if (raw_result_list == null) goto default;
 
           Console.WriteLine("ok Load Raw Result");
-          var result_list = InOutput.ConvertResults(raw_result_list);
-          if (result_list == null) goto default;
+          var result_routeid_list = InOutput.ConvertRouteIDResults(raw_result_list);
+          var result_route_value_list = InOutput.ConvertRouteValueResults(raw_result_list);
+          if (result_routeid_list == null || result_route_value_list == null) goto default;
 
           Console.WriteLine("ok Success Predict Branchs");
 
           var route_list = new List<I_Route>();
-          for (int i = 0; i < result_list.Count; i++) {
-            int predicted_route_id = result_list[i];
-            route_list.Add(car_list[i].MyRouteList.First(route => route.RouteID == predicted_route_id));
+          for (int i = 0; i < result_routeid_list.Count; i++) {
+            int predicted_route_id = result_routeid_list[i];
+            double predicted_value = result_route_value_list[i];
+
+            var route = car_list[i].MyRouteList.First(r => r.RouteID == predicted_route_id);
+            route.PredictValue = predicted_value;
+            route_list.Add(route);
           }
 
           return route_list;

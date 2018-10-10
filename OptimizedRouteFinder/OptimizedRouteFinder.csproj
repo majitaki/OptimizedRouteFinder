@@ -63,7 +63,7 @@
     <Compile Include="Utility\PythonProxy.cs" />
     <Compile Include="Utility\Settings.cs" />
     <None Include="Output\Working\predict_branch.py">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

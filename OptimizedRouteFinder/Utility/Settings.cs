@@ -62,18 +62,18 @@ namespace OptimizedRouteFinder.Utility {
       this.WorkingPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName;
 
       this.InputCsvName = "random_honsyu.csv";
-      this.InputCsvPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + this.InputCsvName;
+      this.InputCsvPath = this.WorkingPath + "\\" + "data" + "\\" + this.InputCsvName;
 
       this.OutputResultCsvName = "result.csv";
       this.OutputAllResultCsvName = "result_all.csv";
-      this.OutputResultCsvPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + this.OutputResultCsvName;
-      this.OutputAllResultCsvPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + this.OutputAllResultCsvName;
-      this.OutputFlagPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + "flag";
+      this.OutputResultCsvPath = this.WorkingPath + "\\" + this.OutputResultCsvName;
+      this.OutputAllResultCsvPath = this.WorkingPath + "\\" + this.OutputAllResultCsvName;
+      this.OutputFlagPath = this.WorkingPath + "\\" + "flag";
       this.OutputPredictCsvName = "sample.csv";
-      this.OutputPredictCsvPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + this.OutputPredictCsvName;
+      this.OutputPredictCsvPath = this.WorkingPath + "\\" + this.OutputPredictCsvName;
 
       this.PredictBranchScriptName = "predict_branch.py";
-      this.PredictBranchScriptPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName + "\\" + this.PredictBranchScriptName;
+      this.PredictBranchScriptPath = this.WorkingPath + "\\" + this.PredictBranchScriptName;
 
       this.CargoColumDuration = new Tuple<int, int>(3, 17);
       this.Route00_ColumDuration = new Tuple<int, int>(18, 34);

@@ -14,7 +14,7 @@ namespace OptimizedRouteFinder {
       PythonProxy.StartUpPython();
 
       var all_data = InOutput.ReadRaw(MySettings.GetInstance().InputCsvPath);
-      var cargo_10017 = all_data.Where(data => data.MyCargo.CargoColumnDic["A"] == 10017).ToList();
+      var cargo_10017 = all_data.Where(data => data.MyCargo.CargoColumnDic["A"] == 10044).ToList();
       var win_route_list = Predict.PredictBranchs(cargo_10017);
     }
   }

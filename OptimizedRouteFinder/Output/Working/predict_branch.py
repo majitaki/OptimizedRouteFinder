@@ -2,6 +2,7 @@
 import csv
 from datetime import datetime as dt
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import numpy as np
 import copy
 import matplotlib.pyplot as plt
@@ -26,8 +27,9 @@ comment = 'ここにコメントを記載してください'
 
 #学習データの場所
 output_pass = './'
-data_pass = './random_honsyu.csv'
-model_pass = './'
+learn_data_pass = './data/random_honsyu.csv'
+predict_data_pass = './sample.csv'
+model_pass = './model/'
 #正解データの場所
 Target_data = 1
 
@@ -110,18 +112,16 @@ def data_remove(raw_data, rm_single):
     return data
 
 #データ整形
-def data_shape(training_data, test_data):  
+def data_shape(training_data):  
     columns_length = len(training_data.columns)
     for i in range(columns_length):
         if (i!=0):
             t_max = training_data.iloc[:, i].max()
             t_min = training_data.iloc[:, i].min()
             training_data.iloc[:, i] = (training_data.iloc[:, i] - t_min) / (t_max - t_min)
-            test_data.iloc[:, i] = (test_data.iloc[:, i] - t_min) / (t_max - t_min)
         else:
             training_data.iloc[:, i] = (training_data.iloc[:, i])
-            test_data.iloc[:, i] = (test_data.iloc[:, i])
-    return training_data, test_data
+    return training_data
 
 def np_convert(data):
     data=data.as_matrix()
@@ -192,11 +192,13 @@ def training_model(model, x_training_data, y_training_data, batchs,epochs, path,
 #csv読み込み
 needless_columns = ['random', 'number']
 
-all_data = data_read(data_pass, needless_columns)
-raw_training_data = data_split(all_data, test_ratio)[0]
-raw_test_data = data_split(all_data, test_ratio)[1]
+learn_data = data_read(learn_data_pass, needless_columns)
+predict_data = data_read(predict_data_pass, needless_columns)
+all_data = pd.concat([learn_data, predict_data])
+#raw_training_data = data_split(all_data, test_ratio)[0]
+#raw_test_data = data_split(all_data, test_ratio)[1]
 
-ds_rmgroup_columns = raw_training_data.columns.delete(loc=0)
+ds_rmgroup_columns = all_data.columns.delete(loc=0)
 df_rmgroup = pd.DataFrame()
 index0 = 0
 for rm_group in rm_groups:
@@ -218,32 +220,25 @@ for rm_group in rm_groups:
                 ds_rmgroup[rmc] = 1
     
     df_rmgroup = pd.concat([df_rmgroup, pd.DataFrame(ds_rmgroup, columns=[index0])], axis=1)
-    df_rmgroup.to_csv(data_pass + 'rmgroup.csv')
+    #df_rmgroup.to_csv('rmgroup.csv')
     
-    #出力ルートフォルダ作成
-    root_pass = data_pass + rm_pass + '/'
-    if os.path.exists(root_pass)==False:
-        os.makedirs(root_pass)
     
     pd_test_result = pd.DataFrame(columns = ['test_loss', 'test_acc'])
     
     for rep in range(0, REPEAT):
-        rp_number = '{0:04d}'.format(rep)
-        #出力フォルダ作成
-        o_pass = root_pass + rp_number + '/'
-        if os.path.exists(o_pass)==False:
-            os.makedirs(o_pass)
         
         #列の除去
-        training_data = data_remove(raw_training_data, rm_group)
-        test_data = data_remove(raw_test_data, rm_group)
+        #training_data = data_remove(raw_training_data, rm_group)
+        #test_data = data_remove(raw_test_data, rm_group)
+        all_remed_data = data_remove(all_data, rm_group)
         #データ整形
-        training_shaped_data, test_shaped_data = data_shape(training_data, test_data)
+        #training_shaped_data, test_shaped_data = data_shape(training_data, test_data)
+        all_shaped_data = data_shape(all_remed_data)
         #npdata変換
-        x_training_data = np_convert(training_shaped_data)[0]
-        y_training_data = np_convert(training_shaped_data)[1]
-        x_test_data = np_convert(test_shaped_data)[0]
-        y_test_data = np_convert(test_shaped_data)[1]
+        x_all_data = np_convert(all_shaped_data)[0]
+        y_all_data = np_convert(all_shaped_data)[1]
+        #x_test_data = np_convert(test_shaped_data)[0]
+        #y_test_data = np_convert(test_shaped_data)[1]
         
         #model読み込み
         model = model_from_json(open(model_pass + 'model.json').read())
@@ -252,18 +247,26 @@ for rm_group in rm_groups:
         model.compile(loss="mean_squared_error", optimizer=Adam(),metrics=['accuracy'])
         
         #評価
-        test_loss, test_acc = model.evaluate(x_test_data, y_test_data, verbose=0)
+        test_loss, test_acc = model.evaluate(x_all_data, y_all_data, verbose=0)
         series = pd.Series([test_loss, test_acc], index= ['test_loss', 'test_acc'])
         pd_test_result = pd_test_result.append(series, ignore_index = True)
         
-        predict_test = model.predict(x_test_data, batch_size=BATCHES,verbose=0)
-        est_list = []
+        predict_test = model.predict(x_all_data, batch_size=BATCHES,verbose=0)
+        predicted_list = []
+        value_list =[]
+        df_result = pd.DataFrame()
+        
         df_predict_test = pd.DataFrame(predict_test)
         for i in range(df_predict_test.shape[0]):
             p_max = np.array(df_predict_test.iloc[[i]]).argmax()
-            est_list.append(p_max)
+            predicted_list.append(p_max)
+            value_list.append(df_predict_test.iloc[[i],p_max][i])
         
-        output_data = copy.deepcopy(raw_test_data)
-        output_data['predict_result'] = est_list
-        output_data.to_csv(output_pass + 'result_test_all.csv', encoding="SHIFT-JIS")
-        winsound.Beep(523, 1000)
+        df_result['estimate'] = pd.Series(predicted_list)
+        df_result['value'] = pd.Series(value_list)
+        df_result.iloc[len(learn_data):,:].to_csv(output_pass + 'result.csv', encoding="SHIFT-JIS")
+        df_result.iloc[len(learn_data):,:].to_csv(output_pass + 'flag', encoding="SHIFT-JIS")
+        #output_data = copy.deepcopy(raw_test_data)
+        #output_data['predict_result'] = est_list
+        #output_data.to_csv(output_pass + 'result_test_all.csv', encoding="SHIFT-JIS")
+        #winsound.Beep(523, 1000)

@@ -10,6 +10,7 @@ namespace OptimizedRouteFinder.Interfaces {
   /// </summary>
   interface I_Route {
     int RouteID { get; }
+    double PredictValue { get; set; }
     Dictionary<string, double> RouteColumnDic { get; }
     void Register(List<string> route_list, List<string> columns);
   }

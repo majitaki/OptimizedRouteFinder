@@ -11,6 +11,7 @@ namespace OptimizedRouteFinder.BasicComponents {
     /// 経路オブジェクトのID
     /// </summary>
     public int RouteID { get; }
+    public double PredictValue { get; set; }
     /// <summary>
     /// 経路オブジェクトの辞書による表現
     /// </summary>
@@ -22,6 +23,7 @@ namespace OptimizedRouteFinder.BasicComponents {
     /// <param name="id">経路オブジェクトのID</param>
     public Route(int id) {
       this.RouteID = id;
+      this.PredictValue = 0.0;
       this.RouteColumnDic = new Dictionary<string, double>();
     }
 
