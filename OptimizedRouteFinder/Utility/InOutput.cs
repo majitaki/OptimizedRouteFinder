@@ -119,7 +119,7 @@ namespace OptimizedRouteFinder.Utility {
       for (int count = 0; count <= 5; count++) {
         try {
           using (var sr = new StreamReader(result_filePath, System.Text.Encoding.GetEncoding("utf-8"))) {
-            //sr.ReadLine().Split(',');
+            sr.ReadLine().Split(',');
             while (sr.EndOfStream == false) {
               raw_result_list.Add(sr.ReadLine().Split(','));
             }
