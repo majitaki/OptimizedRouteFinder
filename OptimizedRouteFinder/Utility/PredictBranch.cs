@@ -1,5 +1,4 @@
 ﻿using OptimizedRouteFinder.BasicComponents;
-using OptimizedRouteFinder.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +16,7 @@ namespace OptimizedRouteFinder.Utility {
     /// </summary>
     /// <param name="car_list">複数の対戦データ</param>
     /// <returns>対戦の結果，勝利したルートを入力した対戦順にリストにして返す</returns>
-    public static List<I_Route> PredictBranchs(List<I_CargoAndRoutes> car_list) {
+    public static List<Route> PredictBranchs(List<CargoAndRoutes> car_list) {
 
       InOutput.WriteRaw(car_list);
 
@@ -42,7 +41,7 @@ namespace OptimizedRouteFinder.Utility {
 
           Console.WriteLine("ok Success Predict Branchs");
 
-          var route_list = new List<I_Route>();
+          var route_list = new List<Route>();
           for (int i = 0; i < result_routeid_list.Count; i++) {
             int predicted_route_id = result_routeid_list[i];
             double predicted_value = result_route_value_list[i];
@@ -59,6 +58,11 @@ namespace OptimizedRouteFinder.Utility {
       }
 
     }
-
+    public static List<Route> PredictBranchs(CargoAndRoutes car) {
+      List<CargoAndRoutes> car_list = new List<CargoAndRoutes>();
+      car_list.Add(car);
+      InOutput.WriteRaw(car_list);
+      return PredictBranchs(car_list);
+    }
   }
 }

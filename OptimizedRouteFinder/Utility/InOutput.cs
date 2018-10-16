@@ -1,5 +1,4 @@
 ﻿using OptimizedRouteFinder.BasicComponents;
-using OptimizedRouteFinder.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +17,7 @@ namespace OptimizedRouteFinder.Utility {
     /// </summary>
     /// <param name="csv_path">学習データのパス名</param>
     /// <returns>CargoAndRoutes型に変換されたデータを返す</returns>
-    public static List<I_CargoAndRoutes> ReadRaw(string csv_path) {
+    public static List<CargoAndRoutes> ReadRaw(string csv_path) {
       var row_str_list = new List<List<string>>();
       var column_list = new List<string>();
 
@@ -39,7 +38,7 @@ namespace OptimizedRouteFinder.Utility {
         return null;
       }
 
-      var all_data = new List<I_CargoAndRoutes>();
+      var all_data = new List<CargoAndRoutes>();
       foreach (var row_str in row_str_list) {
         var one_row = new CargoAndRoutes(true);
         one_row.Register(row_str, column_list);
@@ -54,7 +53,7 @@ namespace OptimizedRouteFinder.Utility {
     /// CargoAndRoute型のデータをcsvファイルに書き込む
     /// </summary>
     /// <param name="car_list">CargoAndRoute型のリスト</param>
-    public static void WriteRaw(List<I_CargoAndRoutes> car_list) {
+    public static void WriteRaw(List<CargoAndRoutes> car_list) {
       var filepath = MySettings.GetInstance().OutputPredictCsvPath;
       List<string> column_list = new List<string>();
       File.Delete(filepath);

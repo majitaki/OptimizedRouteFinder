@@ -1,5 +1,4 @@
-﻿using OptimizedRouteFinder.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +8,7 @@ namespace OptimizedRouteFinder.BasicComponents {
   /// <summary>
   /// 貨物のオブジェクト
   /// </summary>
-  class Cargo : I_Cargo {
+  class Cargo {
     /// <summary>
     /// 貨物オブジェクトのID．今はCargoAndRoutesの中に貨物は一つしかないないため，用いられていない．
     /// </summary>

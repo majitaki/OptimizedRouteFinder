@@ -22,8 +22,10 @@ namespace OptimizedRouteFinder.Utility {
     public string WorkingFolderName { get; private set; }
     public string WorkingPath { get; private set; }
     //input file
-    public string InputCsvName { get; private set; }
-    public string InputCsvPath { get; private set; }
+    public string InputLearningCsvName { get; private set; }
+    public string InputLearningCsvPath { get; private set; }
+    public string InputTournamentCsvName { get; private set; }
+    public string InputTournamentCsvPath { get; private set; }
     //output file
     public string OutputResultCsvName { get; private set; }
     public string OutputAllResultCsvName { get; private set; }
@@ -54,15 +56,17 @@ namespace OptimizedRouteFinder.Utility {
     private MySettings() {
       this.AnacondaPath = "C:\\ProgramData\\Anaconda3\\Scripts\\activate.bat";
       this.AnacondaEnv = "";
-      //this.BasePath = Environment.CurrentDirectory;
-      this.BasePath = "./";
+      this.BasePath = Environment.CurrentDirectory;
+      //this.BasePath = ".";
       this.OutputFolderName = "Output";
 
       this.WorkingFolderName = "Working";
       this.WorkingPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName;
 
-      this.InputCsvName = "random_honsyu.csv";
-      this.InputCsvPath = this.WorkingPath + "\\" + "data" + "\\" + this.InputCsvName;
+      this.InputLearningCsvName = "random_honsyu.csv";
+      this.InputLearningCsvPath = this.WorkingPath + "\\" + "data" + "\\" + this.InputLearningCsvName;
+      this.InputTournamentCsvName = "tournament.csv";
+      this.InputTournamentCsvPath = this.WorkingPath + "\\" + "data" + "\\" + this.InputTournamentCsvName;
 
       this.OutputResultCsvName = "result.csv";
       this.OutputAllResultCsvName = "result_all.csv";

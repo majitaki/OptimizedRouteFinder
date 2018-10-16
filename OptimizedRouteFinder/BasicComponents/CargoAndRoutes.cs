@@ -1,5 +1,4 @@
-﻿using OptimizedRouteFinder.Interfaces;
-using OptimizedRouteFinder.Utility;
+﻿using OptimizedRouteFinder.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,7 @@ namespace OptimizedRouteFinder.BasicComponents {
   /// csvの学習データの一行を表すこともある．
   /// 複数の経路は4つに留まらず，何個でもよい．
   /// </summary>
-  class CargoAndRoutes : I_CargoAndRoutes {
+  class CargoAndRoutes {
     /// <summary>
     /// trueならば，csvの学習データの一行を表している
     /// </summary>
@@ -49,11 +48,11 @@ namespace OptimizedRouteFinder.BasicComponents {
     /// <summary>
     /// 貨物オブジェクト
     /// </summary>
-    public I_Cargo MyCargo { get; private set; }
+    public Cargo MyCargo { get; private set; }
     /// <summary>
     /// 経路オブジェクトのリスト
     /// </summary>
-    public List<I_Route> MyRouteList { get; private set; }
+    public List<Route> MyRouteList { get; private set; }
 
     /// <summary>
     /// </summary>
@@ -61,7 +60,7 @@ namespace OptimizedRouteFinder.BasicComponents {
     public CargoAndRoutes(bool is_raw) {
       this.IsRaw = is_raw;
       this.MyCargo = new Cargo();
-      this.MyRouteList = new List<I_Route>();
+      this.MyRouteList = new List<Route>();
     }
 
     /// <summary>
@@ -129,8 +128,13 @@ namespace OptimizedRouteFinder.BasicComponents {
     /// </summary>
     /// <param name="cargo"></param>
     /// <param name="route_list"></param>
-    public void Register(I_Cargo cargo, List<I_Route> route_list) {
+    public void Register(Cargo cargo, List<Route> route_list) {
       this.MyCargo = cargo;
+      int i = 0;
+      foreach (var route in route_list) {
+        route.RouteID = i;
+        i++;
+      }
       this.MyRouteList = route_list;
     }
   }

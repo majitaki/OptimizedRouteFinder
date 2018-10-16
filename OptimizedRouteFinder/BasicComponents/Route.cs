@@ -1,16 +1,15 @@
-﻿using OptimizedRouteFinder.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OptimizedRouteFinder.BasicComponents {
-  class Route : I_Route {
+  class Route {
     /// <summary>
     /// 経路オブジェクトのID
     /// </summary>
-    public int RouteID { get; }
+    public int RouteID { get; set; }
     public double PredictValue { get; set; }
     /// <summary>
     /// 経路オブジェクトの辞書による表現

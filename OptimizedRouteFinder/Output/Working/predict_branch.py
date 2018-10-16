@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import glob
 import winsound
 import time
+import sys
 
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
@@ -191,8 +192,9 @@ def training_model(model, x_training_data, y_training_data, batchs,epochs, path,
 
 #csv読み込み
 needless_columns = ['random', 'number']
-
-learn_data = data_read(learn_data_pass, needless_columns)
+args = sys.argv
+#learn_data = data_read(learn_data_pass, needless_columns)
+learn_data = data_read(args[1], needless_columns)
 predict_data = data_read(predict_data_pass, needless_columns)
 all_data = pd.concat([learn_data, predict_data])
 #raw_training_data = data_split(all_data, test_ratio)[0]

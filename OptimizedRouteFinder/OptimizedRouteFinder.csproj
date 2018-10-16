@@ -45,9 +45,6 @@
     <Compile Include="BasicComponents\Cargo.cs" />
     <Compile Include="BasicComponents\CargoAndRoutes.cs" />
     <Compile Include="BasicComponents\Route.cs" />
-    <Compile Include="Interfaces\I_Cargo.cs" />
-    <Compile Include="Interfaces\I_CargoAndRoutes.cs" />
-    <Compile Include="Interfaces\I_Route.cs" />
     <None Include="Output\Working\dummy">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
