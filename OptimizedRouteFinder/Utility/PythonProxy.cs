@@ -53,7 +53,7 @@ namespace OptimizedRouteFinder.Utility {
 
       if (StreamWriter.BaseStream.CanWrite) {
         StreamWriter.WriteLine(@"cd " + work_path);
-        StreamWriter.WriteLine(@"python " + path + " ./data/" + MySettings.GetInstance().InputLearningCsvName)
+        StreamWriter.WriteLine(@"python " + path + " ./data/" + MySettings.GetInstance().InputLearningCsvName);
       }
 
       bool exist_flag = false;

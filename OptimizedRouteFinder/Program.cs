@@ -31,8 +31,11 @@ namespace OptimizedRouteFinder {
 
       CargoAndRoutes car = new CargoAndRoutes(false);
       car.Register(cargo, win_route_list);
-      
+      var car_list = new List<CargoAndRoutes>();
+      car_list.Add(car);
+      //car_list.Add(tournament_data[0]);
 
+      var final_win_route = Predict.PredictBranchs(car_list);
     }
   }
 }

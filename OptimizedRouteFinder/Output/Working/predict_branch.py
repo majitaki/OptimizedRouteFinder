@@ -92,6 +92,22 @@ def data_read(pass_name, needless_columns):
     df = df.fillna(0)
     return df
 
+
+def pred_data_read(pass_name,learn_data, needless_columns):
+    try:
+        df = pd.read_csv(pass_name)
+    except FileNotFoundError as e:
+        print(e)
+    except csv.Error as e:
+        print(e)
+        
+    for column in needless_columns:
+        df = df.drop(column, axis=1)    
+    df = df.fillna(0)
+    
+    df.columns = learn_data.columns
+    return df
+
 #学習，テストデータの分割
 def data_split(data, test_ratio):
     raw_training_data = pd.DataFrame()
@@ -195,7 +211,7 @@ needless_columns = ['random', 'number']
 args = sys.argv
 #learn_data = data_read(learn_data_pass, needless_columns)
 learn_data = data_read(args[1], needless_columns)
-predict_data = data_read(predict_data_pass, needless_columns)
+predict_data = pred_data_read(predict_data_pass, learn_data, needless_columns)
 all_data = pd.concat([learn_data, predict_data])
 #raw_training_data = data_split(all_data, test_ratio)[0]
 #raw_test_data = data_split(all_data, test_ratio)[1]
