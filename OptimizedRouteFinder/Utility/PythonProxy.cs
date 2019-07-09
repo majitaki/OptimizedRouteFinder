@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OptimizedRouteFinder.Utility {
+namespace OptimizedRouteFinder {
   /// <summary>
   /// C#プログラムとPythonスクリプトの仲介をするクラス
   /// </summary>

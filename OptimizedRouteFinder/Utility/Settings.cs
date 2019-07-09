@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OptimizedRouteFinder.Utility {
+namespace OptimizedRouteFinder
+{
   /// <summary>
   /// プログラムの設定に関するクラス．シングルトンの仕組みが実装されているため，常に同じ設定内容を取得できる．staticとして設計しなかった理由は継承で変更した設定を拡張によって構成できるようにするため．
   /// </summary>
-  public sealed class MySettings {
+  public sealed class MySettings
+  {
     private static MySettings SingletonSettings = new MySettings();
 
     //anaconda
@@ -45,7 +47,8 @@ namespace OptimizedRouteFinder.Utility {
     public Tuple<int, int> Route02_ColumDuration { get; private set; }
     public Tuple<int, int> Route03_ColumDuration { get; private set; }
 
-    public static MySettings GetInstance() {
+    public static MySettings GetInstance()
+    {
       return SingletonSettings;
     }
 
@@ -53,7 +56,8 @@ namespace OptimizedRouteFinder.Utility {
     /// プログラムの設定項目
     /// 入出力ファイルやフォルダの設定など
     /// </summary>
-    private MySettings() {
+    private MySettings()
+    {
       this.AnacondaPath = "C:\\ProgramData\\Anaconda3\\Scripts\\activate.bat";
       this.AnacondaEnv = "";
       this.BasePath = Environment.CurrentDirectory;
@@ -63,7 +67,7 @@ namespace OptimizedRouteFinder.Utility {
       this.WorkingFolderName = "Working";
       this.WorkingPath = this.BasePath + "\\" + this.OutputFolderName + "\\" + this.WorkingFolderName;
 
-      this.InputLearningCsvName = "random_honsyu.csv";
+      this.InputLearningCsvName = "export_data.csv";
       this.InputLearningCsvPath = this.WorkingPath + "\\" + "data" + "\\" + this.InputLearningCsvName;
       this.InputTournamentCsvName = "tournament.csv";
       this.InputTournamentCsvPath = this.WorkingPath + "\\" + "data" + "\\" + this.InputTournamentCsvName;
@@ -79,11 +83,11 @@ namespace OptimizedRouteFinder.Utility {
       this.PredictBranchScriptName = "predict_branch.py";
       this.PredictBranchScriptPath = this.WorkingPath + "\\" + this.PredictBranchScriptName;
 
-      this.CargoColumDuration = new Tuple<int, int>(3, 17);
-      this.Route00_ColumDuration = new Tuple<int, int>(18, 34);
-      this.Route01_ColumDuration = new Tuple<int, int>(35, 51);
-      this.Route02_ColumDuration = new Tuple<int, int>(52, 68);
-      this.Route03_ColumDuration = new Tuple<int, int>(69, 85);
+      this.CargoColumDuration = new Tuple<int, int>(3, 13);
+      this.Route00_ColumDuration = new Tuple<int, int>(14, 31);
+      this.Route01_ColumDuration = new Tuple<int, int>(32, 49);
+      this.Route02_ColumDuration = new Tuple<int, int>(50, 67);
+      this.Route03_ColumDuration = new Tuple<int, int>(68, 85);
     }
   }
 }

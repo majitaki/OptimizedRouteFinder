@@ -1,12 +1,11 @@
-﻿using OptimizedRouteFinder.BasicComponents;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OptimizedRouteFinder.Utility {
+namespace OptimizedRouteFinder {
   /// <summary>
   /// 入出力に関するクラス
   /// </summary>
@@ -39,11 +38,12 @@ namespace OptimizedRouteFinder.Utility {
       }
 
       var all_data = new List<CargoAndRoutes>();
+      int line_num = 0;
       foreach (var row_str in row_str_list) {
         var one_row = new CargoAndRoutes(true);
-        one_row.Register(row_str, column_list);
+        one_row.Register(row_str, column_list, line_num);
         all_data.Add(one_row);
-
+        line_num++;
       }
 
       return all_data;

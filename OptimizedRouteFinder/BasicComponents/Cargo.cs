@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OptimizedRouteFinder.BasicComponents {
+namespace OptimizedRouteFinder {
   /// <summary>
   /// 貨物のオブジェクト
   /// </summary>

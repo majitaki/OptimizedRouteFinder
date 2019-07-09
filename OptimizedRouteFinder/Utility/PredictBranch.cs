@@ -1,11 +1,10 @@
-﻿using OptimizedRouteFinder.BasicComponents;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OptimizedRouteFinder.Utility {
+namespace OptimizedRouteFinder {
   /// <summary>
   /// Pythonによる評価に関するクラス
   /// </summary>
